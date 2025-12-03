@@ -1,0 +1,155 @@
+{
+  "actors": [
+    {
+      "id": "c1257abc-807a-48c9-8021-11cae33c1d4f",
+      "text": "User",
+      "type": "istar.Agent",
+      "x": 0,
+      "y": 0,
+      "nodes": [
+        {
+          "id": "c27c6eb8-ee6f-4329-9d6b-f313ba745041",
+          "text": "Request Taxi Ride",
+          "type": "istar.Goal",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "396d154a-d1b1-4854-ae4c-094ca18ef2b7",
+          "text": "Track Ride",
+          "type": "istar.Goal",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "c341e597-4a76-4c74-98a4-f1284a3c0d11",
+          "text": "Rate Driver",
+          "type": "istar.Goal",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ],
+      "customProperties": {
+        "Description": ""
+      }
+    },
+    {
+      "id": "6a87c115-9d35-4ef8-a72f-a707f1e51d65",
+      "text": "Driver",
+      "type": "istar.Agent",
+      "x": 0,
+      "y": 0,
+      "nodes": [
+        {
+          "id": "a1da9b47-5d12-4404-9c5a-a5233fcbf9a0",
+          "text": "Accept/Decline Ride",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "ee5c08ae-b037-4a62-bd52-8ed2a8758653",
+          "text": "Process Payment",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "7d51c179-8827-4abc-83c6-009e3be82de1",
+          "text": "Rate User",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ],
+      "customProperties": {
+        "Description": ""
+      }
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "b1af5312-c943-4e50-97de-ba2eede00a30",
+      "text": "User depends on Driver for Ride Request",
+      "type": "istar.Task",
+      "x": 0,
+      "y": 0,
+      "source": "c1257abc-807a-48c9-8021-11cae33c1d4f",
+      "target": "a1da9b47-5d12-4404-9c5a-a5233fcbf9a0",
+      "customProperties": {
+        "Description": ""
+      }
+    },
+    {
+      "id": "4a1fbdb5-259f-4ad8-a6f5-a1238b1b08a2",
+      "text": "Driver depends on User for Payment Processing",
+      "type": "istar.Task",
+      "x": 0,
+      "y": 0,
+      "source": "6a87c115-9d35-4ef8-a72f-a707f1e51d65",
+      "target": "ee5c08ae-b037-4a62-bd52-8ed2a8758653",
+      "customProperties": {
+        "Description": ""
+      }
+    }
+  ],
+  "links": [
+    {
+      "id": "87ecabd6-b318-4b8b-b468-92057c9b4ff7",
+      "type": "istar.AndRefinementLink",
+      "source": "c27c6eb8-ee6f-4329-9d6b-f313ba745041",
+      "target": "396d154a-d1b1-4854-ae4c-094ca18ef2b7",
+      "label": ""
+    },
+    {
+      "id": "f639ecb3-39ad-42b9-a131-241cec8a8437",
+      "type": "istar.AndRefinementLink",
+      "source": "396d154a-d1b1-4854-ae4c-094ca18ef2b7",
+      "target": "c341e597-4a76-4c74-98a4-f1284a3c0d11",
+      "label": ""
+    },
+    {
+      "id": "9aaca312-7b56-40a8-b089-092e9ded8717",
+      "type": "istar.AndRefinementLink",
+      "source": "a1da9b47-5d12-4404-9c5a-a5233fcbf9a0",
+      "target": "ee5c08ae-b037-4a62-bd52-8ed2a8758653",
+      "label": ""
+    },
+    {
+      "id": "ef5a92c7-b890-469c-aff3-ccd1a5fea2e8",
+      "type": "istar.AndRefinementLink",
+      "source": "ee5c08ae-b037-4a62-bd52-8ed2a8758653",
+      "target": "7d51c179-8827-4abc-83c6-009e3be82de1",
+      "label": ""
+    }
+  ],
+  "display": {},
+  "tool": "pistar.2.0.0",
+  "istar": "2.0",
+  "saveDate": "",
+  "diagram": {
+    "width": 1700,
+    "height": 1300,
+    "name": "",
+    "customProperties": {}
+  }
+}

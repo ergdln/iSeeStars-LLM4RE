@@ -1,0 +1,89 @@
+Você é um gerador de modelos iStar 2.0 em formato JSON Pistar 2.0.0.
+
+================================================================================
+INFORMAÇÕES DO MODELO
+================================================================================
+
+Atores: [LISTA DE ATORES COM SEUS NODES]
+Dependencies: [LISTA DE DEPENDENCIES]
+Links: [LISTA DE LINKS]
+Extensões: [ELEMENTOS ADICIONAIS - se houver]
+
+================================================================================
+TAREFA
+================================================================================
+
+Gere o modelo iStar 2.0 completo em JSON seguindo EXATAMENTE a estrutura Pistar 2.0.0.
+
+================================================================================
+REGRAS OBRIGATÓRIAS
+================================================================================
+
+✓ Todos os IDs são únicos em todo o modelo
+✓ tool = "pistar.2.0.0" (exatamente)
+✓ istar = "2.0" (exatamente)
+✓ source/target referem a IDs existentes
+✓ Nodes dentro de "nodes" de cada ator
+✓ JSON válido e completo
+✓ Retorne APENAS o JSON, sem texto adicional
+
+================================================================================
+ESTRUTURA
+================================================================================
+
+{
+  "actors": [
+    {
+      "id": "id-único",
+      "text": "Nome",
+      "type": "istar.Agent | istar.Role | istar.Actor",
+      "x": 0,
+      "y": 0,
+      "nodes": [
+        {
+          "id": "id-único",
+          "text": "Nome",
+          "type": "istar.Goal | istar.Task | istar.Quality | istar.Resource",
+          "x": 0,
+          "y": 0
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "id-único",
+      "text": "Nome",
+      "type": "istar.Goal | istar.Task | istar.Quality | istar.Resource",
+      "x": 0,
+      "y": 0,
+      "source": "id-ator-existente",
+      "target": "id-ator-existente"
+    }
+  ],
+  "links": [
+    {
+      "id": "id-único",
+      "type": "istar.AndRefinementLink | istar.OrRefinementLink | ...",
+      "source": "id-existente",
+      "target": "id-existente",
+      "label": ""
+    }
+  ],
+  "display": {},
+  "tool": "pistar.2.0.0",
+  "istar": "2.0",
+  "saveDate": "",
+  "diagram": {
+    "width": 1700,
+    "height": 1300,
+    "name": "",
+    "customProperties": {}
+  }
+}
+
+================================================================================
+
+VALIDE o JSON antes de retornar. Retorne APENAS o JSON.
+

@@ -1,0 +1,114 @@
+{
+  "actors": [
+    {
+      "id": "f8d6e5b7-0e8b-4c2b-8c0b-4d4b2f4c2b2d",
+      "text": "User",
+      "type": "istar.Actor",
+      "x": 100,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "b4f3d2a1-5e9c-4c8d-9b1a-2e3f4a5c6d7e",
+          "text": "Request Taxi Ride",
+          "type": "istar.Goal",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "c5b6a7d8-1f2e-3a4b-5c6d-6e7f8a9b0c1d",
+          "text": "Track Ride in Real-Time",
+          "type": "istar.Goal",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "2ee3fbe0-0f3b-4013-91b1-55f3155767eb",
+          "text": "Rate Driver",
+          "type": "istar.Goal",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "411608b1-f355-4d9b-b892-bcced414909a",
+      "text": "Driver",
+      "type": "istar.Actor",
+      "x": 300,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "0c6c7c50-b025-4c8f-9011-e04db3d5c3ad",
+          "text": "Accept or Decline Ride Requests",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "16919585-010a-4afd-b61c-0d2b5a3dd7e7",
+          "text": "Process Payment",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "53ed41eb-8bf1-4b26-90a2-8f38582ccf66",
+          "text": "Rate User",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "ce8be8aa-5417-40fd-9f34-c1b729b41c4d",
+      "text": "User depends on Driver for Ride Completion",
+      "type": "istar.Goal",
+      "x": 300,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "f8d6e5b7-0e8b-4c2b-8c0b-4d4b2f4c2b2d",
+      "target": "411608b1-f355-4d9b-b892-bcced414909a"
+    }
+  ],
+  "links": [],
+  "display": {},
+  "tool": "pistar.2.0.0",
+  "istar": "2.0",
+  "saveDate": "",
+  "diagram": {
+    "width": 1700,
+    "height": 1300,
+    "name": "",
+    "customProperties": {}
+  }
+}

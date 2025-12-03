@@ -111,6 +111,52 @@ A small group of reviewers compares the models against a manually created refere
 
 ---
 
+## 📂 Project Structure
+
+The project is organized into the following directories:
+
+* **`/prompts`** - Templates and strategies for LLM prompting
+* **`/experiments`** - Scripts and configurations for running experiments
+* **`/models`** - Generated iStar 2.0 models in JSON format
+* **`/evaluation`** - Metrics, analyses, and evaluation results
+* **`/interface`** - Guided interface for interactive elicitation
+* **`/docs`** - Reports, analysis, and methodology documentation
+* **`/scenarios`** - Natural language requirement examples
+
+Each directory contains a `README.md` file explaining its purpose and usage in the project lifecycle.
+
+For detailed planning information, see:
+* **[PLANO.md](PLANO.md)** - Initial project plan and directory descriptions
+* **[TECHNICAL_SUMMARY.md](TECHNICAL_SUMMARY.md)** - Technical summary and architecture
+* **[ACTION_PLAN.md](ACTION_PLAN.md)** - Complete action plan with methodology, processes, metrics, and reproducibility checklist
+
+---
+
+## ⚠️ IMPORTANT: JSON Structure Specification
+
+**All models generated, validated, or converted in this project MUST use the exact JSON structure defined in:**
+
+### **[ISTAR_2_0_JSON_STRUCTURE.md](ISTAR_2_0_JSON_STRUCTURE.md)**
+
+This document defines the **official Pistar 2.0.0 JSON structure** that must be used for:
+- Model generation
+- Model validation
+- Model conversion
+- Model review
+- Model completion
+
+**Key requirements:**
+- Structure follows Pistar 2.0.0 format exactly
+- `tool` must be `"pistar.2.0.0"`
+- `istar` must be `"2.0"`
+- Actors contain nodes (goals, tasks, qualities, resources)
+- Dependencies and links follow specific structure
+- **NO additional fields, NO missing fields**
+
+**Always consult `ISTAR_2_0_JSON_STRUCTURE.md` before generating or validating any model.**
+
+---
+
 ## 📚 License & Use
 
 This project is intended for academic and research purposes, especially for studies involving LLMs in requirements engineering.

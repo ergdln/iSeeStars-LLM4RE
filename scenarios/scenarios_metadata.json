@@ -1,0 +1,102 @@
+{
+  "scenario_001": {
+    "id": "scenario_001",
+    "name": "Sistema de Aplicativo de Táxi",
+    "domain": "transporte",
+    "complexity": "média",
+    "word_count_original": 150,
+    "word_count_clearer": 200,
+    "intentional_ambiguities": [
+      "Método de pagamento não especificado (cartão de crédito, dinheiro, carteira digital)",
+      "Processo de seleção de motorista não claro (atribuição automática vs escolha do usuário)",
+      "Critérios e impacto de avaliação não definidos (o que é avaliado, escala, consequências)"
+    ],
+    "expected_actors": ["passageiro", "motorista", "sistema", "processador_pagamento"],
+    "expected_goals": 6,
+    "expected_softgoals": 3,
+    "expected_tasks": 5,
+    "expected_dependencies": 4,
+    "created_at": "2024-12-01",
+    "author": "I See Stars Team"
+  },
+  "scenario_002": {
+    "id": "scenario_002",
+    "name": "Sistema de Gerenciamento de Biblioteca",
+    "domain": "educação",
+    "complexity": "média",
+    "word_count_original": 140,
+    "word_count_clearer": 190,
+    "intentional_ambiguities": [
+      "Registro de membros e níveis de acesso não especificados",
+      "Limites de reserva e espera não claros (quantidade, duração, política de retirada)",
+      "Processamento de devolução e multas não mencionados (cálculo, método de pagamento)"
+    ],
+    "expected_actors": ["membro", "equipe_biblioteca", "sistema"],
+    "expected_goals": 7,
+    "expected_softgoals": 2,
+    "expected_tasks": 6,
+    "expected_dependencies": 3,
+    "created_at": "2024-12-01",
+    "author": "I See Stars Team"
+  },
+  "scenario_003": {
+    "id": "scenario_003",
+    "name": "Sistema de Agendamento de Clínica Médica",
+    "domain": "saúde",
+    "complexity": "média-alta",
+    "word_count_original": 120,
+    "word_count_clearer": 200,
+    "intentional_ambiguities": [
+      "Tipos de consulta e duração não especificados",
+      "Políticas de cancelamento e reagendamento não claras (limites de tempo, taxas, restrições)",
+      "Seleção de médico e disponibilidade não definidas (atribuição, encaminhamentos, agendamento antecipado)"
+    ],
+    "expected_actors": ["paciente", "médico", "equipe_clinica", "sistema"],
+    "expected_goals": 8,
+    "expected_softgoals": 3,
+    "expected_tasks": 7,
+    "expected_dependencies": 5,
+    "created_at": "2024-12-01",
+    "author": "I See Stars Team"
+  },
+  "scenario_004": {
+    "id": "scenario_004",
+    "name": "Plataforma de E-commerce Simples",
+    "domain": "comércio",
+    "complexity": "média",
+    "word_count_original": 140,
+    "word_count_clearer": 220,
+    "intentional_ambiguities": [
+      "Processamento de pagamento e segurança não especificados (métodos, gateway, medidas de segurança)",
+      "Opções de envio e entrega não claras (métodos, custos, prazos)",
+      "Política de devolução e reembolso completamente ausente"
+    ],
+    "expected_actors": ["cliente", "vendedor", "sistema", "gateway_pagamento"],
+    "expected_goals": 7,
+    "expected_softgoals": 2,
+    "expected_tasks": 6,
+    "expected_dependencies": 4,
+    "created_at": "2024-12-01",
+    "author": "I See Stars Team"
+  },
+  "scenario_005": {
+    "id": "scenario_005",
+    "name": "Aplicativo de Descoberta e Reserva de Eventos",
+    "domain": "social",
+    "complexity": "média",
+    "word_count_original": 150,
+    "word_count_clearer": 220,
+    "intentional_ambiguities": [
+      "Tipos de ingresso e preços não especificados (níveis, taxas, descontos, códigos promocionais)",
+      "Processo de criação e aprovação de eventos não claro (quem pode criar, verificação, taxas)",
+      "Políticas de transferência e cancelamento de ingressos ausentes (reembolsos, transferências, cancelamento de evento)"
+    ],
+    "expected_actors": ["usuário", "organizador_evento", "sistema"],
+    "expected_goals": 6,
+    "expected_softgoals": 2,
+    "expected_tasks": 5,
+    "expected_dependencies": 3,
+    "created_at": "2024-12-01",
+    "author": "I See Stars Team"
+  }
+}

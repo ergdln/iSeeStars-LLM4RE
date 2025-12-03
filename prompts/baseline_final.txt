@@ -1,0 +1,149 @@
+Você é um especialista em Engenharia de Requisitos e notação iStar 2.0.
+
+================================================================================
+NOTAÇÃO iSTAR 2.0 - RESUMO
+================================================================================
+
+iStar 2.0 modela sistemas através de:
+
+- ACTORS (Atores): Agentes do sistema (pessoas, sistemas, organizações)
+  Tipos: istar.Agent, istar.Role, istar.Actor
+
+- GOALS (Metas): Objetivos que atores desejam alcançar
+  Tipo: istar.Goal (dentro de nodes do ator)
+
+- TASKS (Tarefas): Atividades específicas para alcançar goals
+  Tipo: istar.Task (dentro de nodes do ator)
+
+- QUALITIES (Qualidades/Softgoals): Critérios de qualidade (ex: segurança, usabilidade)
+  Tipo: istar.Quality (dentro de nodes do ator)
+
+- RESOURCES (Recursos): Recursos necessários
+  Tipo: istar.Resource (dentro de nodes do ator)
+
+- DEPENDENCIES (Dependências): Relações entre atores
+  Um ator depende de outro para um elemento (goal, task, quality, resource)
+
+- LINKS (Conexões): Conexões entre elementos (refinamento, contribuição, etc.)
+
+================================================================================
+CENÁRIO DE REQUISITOS
+================================================================================
+
+[INSERIR CENÁRIO AQUI]
+
+================================================================================
+INSTRUÇÕES
+================================================================================
+
+Analise o cenário acima e gere um modelo iStar 2.0 completo em formato JSON.
+
+REQUISITOS OBRIGATÓRIOS:
+
+1. Identifique TODOS os atores, goals, tasks, qualities, resources e links
+2. Use APENAS elementos mencionados ou claramente inferíveis do cenário
+3. NÃO invente elementos não mencionados
+4. Todos os IDs devem ser UUIDs ÚNICOS (formato: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
+5. TODOS os atores, nodes e dependencies DEVEM ter campo "customProperties" com "Description": ""
+6. Retorne APENAS o JSON, sem texto adicional
+
+================================================================================
+FORMATO JSON - PISTAR 2.0.0 (COMPATÍVEL COM FERRAMENTA iSTAR)
+================================================================================
+
+IMPORTANTE: Use UUIDs para todos os IDs (formato: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
+
+{
+  "actors": [
+    {
+      "id": "uuid-ator-único",
+      "text": "Nome do Ator",
+      "type": "istar.Agent | istar.Role | istar.Actor",
+      "x": 100,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "uuid-node-único",
+          "text": "Nome do Elemento",
+          "type": "istar.Goal | istar.Task | istar.Quality | istar.Resource",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "uuid-dep-único",
+      "text": "Nome da Dependência",
+      "type": "istar.Goal | istar.Task | istar.Quality | istar.Resource",
+      "x": 300,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "uuid-ator-depender",
+      "target": "uuid-ator-dependee"
+    }
+  ],
+  "links": [
+    {
+      "id": "uuid-link-único",
+      "type": "istar.AndRefinementLink | istar.OrRefinementLink | istar.ContributionLink | istar.DependencyLink | istar.IsALink | istar.ParticipatesInLink | istar.QualificationLink | istar.NeededByLink",
+      "source": "uuid-node-origem",
+      "target": "uuid-node-destino",
+      "label": ""
+    }
+  ],
+  "display": {},
+  "tool": "pistar.2.0.0",
+  "istar": "2.0",
+  "saveDate": "",
+  "diagram": {
+    "width": 1700,
+    "height": 1300,
+    "name": "",
+    "customProperties": {}
+  }
+}
+
+================================================================================
+REGRAS CRÍTICAS
+================================================================================
+
+✓ tool = "pistar.2.0.0" (exatamente)
+✓ istar = "2.0" (exatamente)
+✓ Todos os IDs são UUIDs únicos em todo o modelo (formato UUID v4)
+✓ source/target referem a IDs existentes
+✓ Nodes sempre dentro de "nodes" de um ator
+✓ TODOS os atores têm campo "customProperties": {"Description": ""}
+✓ TODOS os nodes têm campo "customProperties": {"Description": ""}
+✓ TODOS os dependencies têm campo "customProperties": {"Description": ""}
+✓ Apenas atores, goals, tasks, qualities, resources e links
+✓ JSON válido, sem comentários
+✓ Coordenadas x, y são números (use valores apropriados, não apenas 0)
+
+⚠️ REGRAS ESPECIAIS PARA DEPENDENCIES E LINKS:
+
+1. DEPENDENCIES (array "dependencies"):
+   - type DEVE ser: "istar.Goal" OU "istar.Task" OU "istar.Quality" OU "istar.Resource"
+   - NUNCA use "istar.DependencyLink" como type de dependency!
+   - source e target são IDs de ATORES (não nodes)
+   - Representa: "ator source depende do ator target para um elemento do tipo type"
+
+2. LINKS (array "links"):
+   - type pode ser: "istar.DependencyLink", "istar.AndRefinementLink", etc.
+   - source e target são IDs de NODES (elementos dentro de atores), NÃO atores!
+   - Links conectam goals, tasks, qualities, resources entre si
+   - Exemplo: um Goal pode ter um AndRefinementLink para Tasks que o refinam
+
+================================================================================
+
+Retorne APENAS o JSON do modelo, sem explicações ou texto adicional.

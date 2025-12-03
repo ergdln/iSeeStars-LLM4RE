@@ -1,0 +1,181 @@
+{
+  "actors": [
+    {
+      "id": "c2c8d8d6-5b5e-4f5b-9e7e-2f5c0e9c5f3b",
+      "text": "User",
+      "type": "istar.Agent",
+      "x": 100,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "b5e0c0f5-6b5e-4e5b-9e7e-2f5c0e9c5f3c",
+          "text": "Request a ride",
+          "type": "istar.Goal",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "e9c8d8d6-5b5e-4f5b-9e7e-2f5c0e9c5f3d",
+          "text": "Rate driver",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 100,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "f8e0c0f5-6b5e-4e5b-9e7e-2f5c0e9c5f3e",
+          "text": "See available drivers",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 200,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "a8e0c0f5-6b5e-4e5b-9e7e-2f5c0e9c5f3f",
+          "text": "View estimated fare",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 300,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "d8e0c0f5-6b5e-4e5b-9e7e-2f5c0e9c5f3g",
+          "text": "Track ride in real-time",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 400,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6",
+      "text": "Driver",
+      "type": "istar.Agent",
+      "x": 300,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "b1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p7",
+          "text": "Accept ride request",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "c1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p8",
+          "text": "Decline ride request",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 100,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "d1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p9",
+          "text": "Rate user",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 200,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "e1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p0",
+      "text": "Payment System",
+      "type": "istar.Actor",
+      "x": 500,
+      "y": 100,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "f1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p1",
+          "text": "Process payment",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 0,
+          "customProperties": {
+            "Description": ""
+          }
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "f2b3c4d5-e6f7-8g9h-0i1j-k2l3m4n5o6p1",
+      "text": "User depends on Driver for accepting ride requests",
+      "type": "istar.Task",
+      "x": 300,
+      "y": 200,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "c2c8d8d6-5b5e-4f5b-9e7e-2f5c0e9c5f3b",
+      "target": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6"
+    },
+    {
+      "id": "f3b4c5d6-e7f8-9g0h-1i2j-k3l4m5n6o7p2",
+      "text": "User depends on Payment System for processing payment",
+      "type": "istar.Task",
+      "x": 300,
+      "y": 300,
+      "customProperties": {
+        "Description": ""
+      },
+      "source": "c2c8d8d6-5b5e-4f5b-9e7e-2f5c0e9c5f3b",
+      "target": "e1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p0"
+    }
+  ],
+  "links": [
+    {
+      "id": "f4b5c6d7-e8f9-0g1h-2i3j-k4l5m6n7o8p3",
+      "type": "istar.AndRefinementLink",
+      "source": "b5e0c0f5-6b5e-4e5b-9e7e-2f5c0e9c5f3c",
+      "target": "f8e0c0f5-6b5e-4e5b-9e7e-2f5c0e9c5f3f"
+    },
+    {
+      "id": "f5b6c7d8-e9f0-1g2h-3i4j-k5l6m7n8o9p4",
+      "type": "istar.ContributionLink",
+      "source": "b5e0c0f5-6b5e-4e5b-9e7e-2f5c0e9c5f3c",
+      "target": "d8e0c0f5-6b5e-4e5b-9e7e-2f5c0e9c5f3g"
+    }
+  ],
+  "display": {},
+  "tool": "pistar.2.0.0",
+  "istar": "2.0",
+  "saveDate": "",
+  "diagram": {
+    "width": 1700,
+    "height": 1300,
+    "name": "",
+    "customProperties": {}
+  }
+}

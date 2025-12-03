@@ -1,0 +1,674 @@
+================================================================================
+INTERFACE CONVERSACIONAL - TRANSFORMAÇÃO DE LINGUAGEM NATURAL EM iSTAR JSON
+================================================================================
+
+Este documento contém todas as mensagens da IA para uma interface 100% 
+conversacional que transforma requisitos em linguagem natural em modelos 
+iStar 2.0 estruturados em JSON.
+
+================================================================================
+ETAPA 1: RECEBER CENÁRIO
+================================================================================
+
+[MENSAGEM DA IA]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔭 I SEE STARS - Elicitação de Requisitos para Modelos iStar 2.0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Olá! Sou seu assistente especializado em Engenharia de Requisitos e notação 
+iStar 2.0. Vou ajudá-lo a transformar seus requisitos em linguagem natural 
+em um modelo iStar 2.0 estruturado.
+
+Para começar, preciso entender o sistema que você deseja modelar.
+
+Por favor, descreva o cenário de requisitos do sistema. Você pode:
+- Descrever o sistema em um ou mais parágrafos
+- Mencionar os principais atores, funcionalidades e objetivos
+- Incluir qualquer informação relevante sobre o domínio
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: <cenário de requisitos>]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MENSAGEM DA IA - Confirmação]
+
+Obrigado! Recebi sua descrição do sistema. Vou analisar o cenário para 
+identificar os elementos do modelo iStar 2.0.
+
+Antes de prosseguir, deixe-me confirmar se entendi corretamente:
+
+[RESUMO DO CENÁRIO]
+
+Está correto? Se houver algo a ajustar, por favor me informe. Caso contrário, 
+responda "sim" ou "correto" para continuarmos.
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "sim" / "correto" / ou correções]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+================================================================================
+ETAPA 2: FAZER PERGUNTAS DE ELICITAÇÃO
+================================================================================
+
+[MENSAGEM DA IA]
+
+Perfeito! Agora vou fazer algumas perguntas para clarificar aspectos 
+importantes do sistema e garantir que o modelo seja completo e preciso.
+
+Vou fazer [5-10] perguntas. Por favor, responda cada uma delas:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 PERGUNTAS DE CLARIFICAÇÃO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Q1: [Pergunta sobre atores]
+    Exemplo: "Quem são os principais atores do sistema? Além dos mencionados, 
+             há outros atores importantes (ex: sistemas externos, administradores)?"
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: <resposta Q1>]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Q2: [Pergunta sobre objetivos/goals]
+    Exemplo: "Quais são os objetivos principais de cada ator? O que cada 
+             ator busca alcançar ao usar o sistema?"
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: <resposta Q2>]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Q3: [Pergunta sobre tarefas]
+    Exemplo: "Quais são as tarefas específicas que cada ator realiza no 
+             sistema? Quais são as atividades concretas que eles executam?"
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: <resposta Q3>]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Q4: [Pergunta sobre dependências]
+    Exemplo: "Quais são as dependências entre os atores? Um ator depende de 
+             outro para alcançar algum objetivo, realizar alguma tarefa, ou 
+             obter algum recurso?"
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: <resposta Q4>]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Q5: [Pergunta sobre qualidades/softgoals]
+    Exemplo: "Existem critérios de qualidade importantes para o sistema? 
+             (ex: segurança, usabilidade, performance, confiabilidade) Para 
+             quais atores esses critérios são importantes?"
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: <resposta Q5>]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[Q6-Q10: Perguntas adicionais se necessário]
+    - Sobre recursos
+    - Sobre processos específicos
+    - Sobre regras de negócio
+    - Sobre exceções ou casos especiais
+    - Sobre integrações externas
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: <respostas Q6-Q10>]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MENSAGEM DA IA - Confirmação]
+
+Excelente! Recebi todas as suas respostas. Agora vou organizar essas 
+informações para criar o modelo iStar 2.0.
+
+================================================================================
+ETAPA 3: VALIDAR E REFINAR
+================================================================================
+
+[MENSAGEM DA IA]
+
+Antes de prosseguir, deixe-me validar se entendi tudo corretamente e se 
+as informações fazem sentido juntas.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ VALIDAÇÃO E REFINAMENTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Com base nas suas respostas, identifiquei o seguinte:
+
+**Atores identificados:**
+- [Ator 1]: [Descrição]
+- [Ator 2]: [Descrição]
+- [Ator 3]: [Descrição]
+
+**Objetivos principais:**
+- [Ator 1] busca: [Goal 1], [Goal 2]
+- [Ator 2] busca: [Goal 1], [Goal 2]
+
+**Dependências identificadas:**
+- [Ator A] depende de [Ator B] para [elemento]
+
+**Qualidades importantes:**
+- [Quality 1] para [Ator]
+- [Quality 2] para [Ator]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Isso faz sentido? Há algo que precisa ser corrigido ou ajustado?
+
+Se estiver tudo correto, responda "sim" ou "está correto". Se houver algo 
+a ajustar, descreva o que precisa ser mudado.
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "sim" / "está correto" / ou correções]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MENSAGEM DA IA - Se houver correções]
+
+Entendido! Vou ajustar:
+
+[APLICAR CORREÇÕES]
+
+Agora está correto?
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "sim" / ou mais correções]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+================================================================================
+ETAPA 4: CONFIRMAR ESTRUTURA FINAL DOS ATORES
+================================================================================
+
+[MENSAGEM DA IA]
+
+Perfeito! Agora vou detalhar a estrutura de cada ator. Vamos confirmar 
+os atores e seus elementos internos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎭 CONFIRMAÇÃO DOS ATORES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Identifiquei os seguintes atores:
+
+**1. [Nome do Ator 1]**
+   Tipo: [Agent / Role / Actor]
+   Descrição: [Descrição do ator]
+
+**2. [Nome do Ator 2]**
+   Tipo: [Agent / Role / Actor]
+   Descrição: [Descrição do ator]
+
+**3. [Nome do Ator 3]**
+   Tipo: [Agent / Role / Actor]
+   Descrição: [Descrição do ator]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Estes atores estão corretos? Há algum ator faltando ou que não deveria 
+estar aqui?
+
+Se estiver tudo correto, responda "sim". Se houver ajustes, liste os 
+atores corretos.
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "sim" / ou lista de atores corrigida]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+================================================================================
+ETAPA 5: CONFIRMAR TAREFAS
+================================================================================
+
+[MENSAGEM DA IA]
+
+Agora vamos confirmar as tarefas de cada ator.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 CONFIRMAÇÃO DAS TAREFAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Tarefas identificadas:**
+
+**[Ator 1]:**
+- [Task 1]: [Descrição]
+- [Task 2]: [Descrição]
+- [Task 3]: [Descrição]
+
+**[Ator 2]:**
+- [Task 1]: [Descrição]
+- [Task 2]: [Descrição]
+
+**[Ator 3]:**
+- [Task 1]: [Descrição]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Estas tarefas estão corretas? Há alguma tarefa faltando ou que não deveria 
+estar aqui?
+
+Se estiver tudo correto, responda "sim". Se houver ajustes, liste as 
+tarefas corretas por ator.
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "sim" / ou lista de tarefas corrigida]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+================================================================================
+ETAPA 6: CONFIRMAR GOALS
+================================================================================
+
+[MENSAGEM DA IA]
+
+Agora vamos confirmar os objetivos (goals) de cada ator.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 CONFIRMAÇÃO DOS GOALS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Goals identificados:**
+
+**[Ator 1]:**
+- [Goal 1]: [Descrição]
+- [Goal 2]: [Descrição]
+- [Goal 3]: [Descrição]
+
+**[Ator 2]:**
+- [Goal 1]: [Descrição]
+- [Goal 2]: [Descrição]
+
+**[Ator 3]:**
+- [Goal 1]: [Descrição]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Estes goals estão corretos? Há algum goal faltando ou que não deveria 
+estar aqui?
+
+Se estiver tudo correto, responda "sim". Se houver ajustes, liste os 
+goals corretos por ator.
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "sim" / ou lista de goals corrigida]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+================================================================================
+ETAPA 7: CONFIRMAR QUALIDADES
+================================================================================
+
+[MENSAGEM DA IA]
+
+Agora vamos confirmar as qualidades (softgoals) importantes para o sistema.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⭐ CONFIRMAÇÃO DAS QUALIDADES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Qualidades identificadas:**
+
+**[Ator 1]:**
+- [Quality 1]: [Descrição]
+- [Quality 2]: [Descrição]
+
+**[Ator 2]:**
+- [Quality 1]: [Descrição]
+
+**[Ator 3]:**
+- [Quality 1]: [Descrição]
+- [Quality 2]: [Descrição]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Estas qualidades estão corretas? Há alguma qualidade faltando ou que não 
+deveria estar aqui?
+
+Se estiver tudo correto, responda "sim". Se houver ajustes, liste as 
+qualidades corretas por ator.
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "sim" / ou lista de qualidades corrigida]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+================================================================================
+ETAPA 8: SEGUNDA RODADA DE VERIFICAÇÃO
+================================================================================
+
+[MENSAGEM DA IA]
+
+Excelente! Agora vou fazer uma verificação final para garantir que não 
+esquecemos nada importante.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔍 VERIFICAÇÃO FINAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Deixe-me resumir o que temos até agora:
+
+**Atores:** [Lista de atores]
+**Goals:** [Número] goals identificados
+**Tasks:** [Número] tarefas identificadas
+**Qualities:** [Número] qualidades identificadas
+**Dependencies:** [Número] dependências identificadas
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Antes de gerar o modelo final, preciso verificar:
+
+1. **Faltou algum ator importante?** 
+   Há algum ator que participa do sistema mas não foi mencionado?
+
+2. **Faltou alguma dependência?**
+   Há relações entre atores que não foram identificadas?
+
+3. **Faltou algum recurso?**
+   Há recursos que os atores precisam mas não foram mencionados?
+
+4. **Há links entre elementos?**
+   Existem conexões de refinamento ou contribuição entre goals, tasks, etc.?
+
+5. **Alguma informação adicional importante?**
+   Há algo mais que deveria estar no modelo?
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Por favor, revise e me informe se há algo faltando ou que precisa ser 
+adicionado. Se estiver tudo completo, responda "está completo" ou "não falta nada".
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "está completo" / ou itens faltantes]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MENSAGEM DA IA - Se houver itens faltantes]
+
+Obrigado! Vou adicionar:
+
+[ADICIONAR ITENS FALTANTES]
+
+Agora está completo?
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "sim" / ou mais itens]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+================================================================================
+ETAPA 9: GERAR JSON iSTAR ESTRUTURADO
+================================================================================
+
+[MENSAGEM DA IA]
+
+Perfeito! Tenho todas as informações necessárias. Agora vou gerar o modelo 
+iStar 2.0 completo em formato JSON estruturado.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 GERANDO MODELO iSTAR 2.0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Gerando modelo...
+
+[PAUSA/MENSAGEM DE PROCESSAMENTO]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ MODELO iSTAR 2.0 GERADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Aqui está o modelo iStar 2.0 completo em formato JSON:
+
+```json
+{
+  "actors": [
+    {
+      "id": "actor-001",
+      "text": "[Nome do Ator]",
+      "type": "istar.Agent",
+      "x": 0,
+      "y": 0,
+      "nodes": [
+        {
+          "id": "goal-001",
+          "text": "[Nome do Goal]",
+          "type": "istar.Goal",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "task-001",
+          "text": "[Nome da Task]",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 50
+        },
+        {
+          "id": "quality-001",
+          "text": "[Nome da Quality]",
+          "type": "istar.Quality",
+          "x": 0,
+          "y": 100
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "dep-001",
+      "text": "[Nome da Dependência]",
+      "type": "istar.Goal",
+      "x": 0,
+      "y": 0,
+      "source": "actor-001",
+      "target": "actor-002"
+    }
+  ],
+  "links": [
+    {
+      "id": "link-001",
+      "type": "istar.AndRefinementLink",
+      "source": "goal-001",
+      "target": "task-001",
+      "label": ""
+    }
+  ],
+  "display": {},
+  "tool": "pistar.2.0.0",
+  "istar": "2.0",
+  "saveDate": "",
+  "diagram": {
+    "width": 1700,
+    "height": 1300,
+    "name": "",
+    "customProperties": {}
+  }
+}
+```
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Resumo do modelo gerado:**
+- Atores: [Número]
+- Goals: [Número]
+- Tasks: [Número]
+- Qualities: [Número]
+- Resources: [Número]
+- Dependencies: [Número]
+- Links: [Número]
+
+O modelo está no formato Pistar 2.0.0 e pronto para uso!
+
+Deseja fazer algum ajuste no modelo? Se estiver satisfeito, podemos 
+prosseguir para a visualização.
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "está bom" / "sim" / ou pedido de ajuste]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MENSAGEM DA IA - Se houver pedido de ajuste]
+
+Claro! O que você gostaria de ajustar?
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: <descrição do ajuste>]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MENSAGEM DA IA - Após ajuste]
+
+Ajuste realizado! Aqui está o modelo atualizado:
+
+[JSON ATUALIZADO]
+
+Está correto agora?
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "sim" / ou mais ajustes]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+================================================================================
+ETAPA 10: PERGUNTAR SOBRE VISUALIZAÇÃO PiSTAR
+================================================================================
+
+[MENSAGEM DA IA]
+
+Perfeito! O modelo iStar 2.0 está completo e validado.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 VISUALIZAÇÃO DO MODELO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Deseja visualizar o modelo em estilo PiStar?
+
+Posso gerar:
+- Uma representação textual estruturada do modelo
+- Um diagrama em formato texto/ASCII
+- Um resumo visual dos elementos e suas relações
+
+Responda "sim" se deseja visualizar, ou "não" se prefere apenas o JSON.
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "sim" / "não"]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MENSAGEM DA IA - Se "sim"]
+
+Gerando visualização...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 VISUALIZAÇÃO DO MODELO iSTAR 2.0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ATOR 1]
+├── Goals:
+│   ├── [Goal 1]
+│   └── [Goal 2]
+├── Tasks:
+│   ├── [Task 1]
+│   └── [Task 2]
+└── Qualities:
+    └── [Quality 1]
+
+[ATOR 2]
+├── Goals:
+│   └── [Goal 1]
+└── Tasks:
+    └── [Task 1]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DEPENDÊNCIAS:
+[Ator A] ──depends on──> [Ator B] (for [elemento])
+
+LINKS:
+[Elemento 1] ──[tipo de link]──> [Elemento 2]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MENSAGEM DA IA - Se "não"]
+
+Entendido! O modelo JSON está completo e pronto para uso.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ PROCESSO CONCLUÍDO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+O modelo iStar 2.0 foi gerado com sucesso!
+
+Você pode:
+- Copiar o JSON para usar em ferramentas iStar
+- Salvar o modelo para referência futura
+- Fazer ajustes adicionais se necessário
+
+Deseja fazer mais alguma coisa? Se não, foi um prazer ajudá-lo!
+
+[PLACEHOLDER PARA RESPOSTA DO USUÁRIO]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[RESPOSTA DO USUÁRIO: "não, obrigado" / ou pedido adicional]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[MENSAGEM DA IA - Final]
+
+Obrigado por usar o I See Stars! Seu modelo iStar 2.0 está pronto. 
+Até a próxima!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+================================================================================
+FIM DO FLUXO
+================================================================================
+

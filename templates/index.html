@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I See Stars - Elicitação Interativa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔭 I See Stars</h1>
+            <p class="subtitle">Transforme linguagem natural em modelos iStar 2.0</p>
+        </header>
+
+        <!-- Etapa 1: Entrada do Cenário -->
+        <div id="step-input" class="step active">
+            <div class="card">
+                <h2>📝 Etapa 1: Insira o Cenário de Requisitos</h2>
+                <p class="description">
+                    Descreva o sistema ou domínio que deseja modelar em linguagem natural.
+                    Quanto mais detalhes, melhor será o modelo gerado.
+                </p>
+                <textarea 
+                    id="cenario-input" 
+                    placeholder="Exemplo: Um aplicativo de táxi onde usuários podem solicitar corridas, motoristas podem aceitar ou recusar corridas, e o sistema processa pagamentos..."
+                    rows="10"
+                ></textarea>
+                <div class="button-group">
+                    <button id="btn-start" class="btn btn-primary">
+                        Iniciar Elicitação
+                    </button>
+                    <button id="btn-load-example" class="btn btn-secondary">
+                        Carregar Exemplo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Etapa 2: Perguntas e Respostas -->
+        <div id="step-questions" class="step">
+            <div class="card">
+                <h2>❓ Perguntas de Clarificação</h2>
+                <p class="description">
+                    Responda às perguntas abaixo para ajudar a IA a criar um modelo mais preciso.
+                </p>
+                
+                <div id="loading-questions" class="loading">
+                    <div class="spinner"></div>
+                    <p>Gerando perguntas de clarificação...</p>
+                </div>
+
+                <div id="questions-container" class="questions-container"></div>
+
+                <div class="button-group" id="questions-buttons" style="display: none;">
+                    <button id="btn-submit-answers" class="btn btn-primary" disabled>
+                        Gerar Modelo iStar
+                    </button>
+                    <button id="btn-add-more-questions" class="btn btn-secondary">
+                        Fazer Mais Perguntas
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Etapa 3: Modelo Gerado -->
+        <div id="step-model" class="step">
+            <div class="card">
+                <h2>✅ Modelo iStar 2.0 Gerado</h2>
+                <p class="description">
+                    Seu modelo está pronto! Você pode visualizar, copiar ou baixar o JSON.
+                </p>
+
+                <div id="loading-model" class="loading">
+                    <div class="spinner"></div>
+                    <p>Gerando modelo iStar 2.0...</p>
+                </div>
+
+                <div id="model-container" style="display: none;">
+                    <div class="model-stats" id="model-stats"></div>
+                    
+                    <div class="json-viewer">
+                        <div class="json-header">
+                            <span>JSON do Modelo</span>
+                            <div class="json-actions">
+                                <button id="btn-copy-json" class="btn btn-small">📋 Copiar</button>
+                                <button id="btn-download-json" class="btn btn-small">💾 Baixar</button>
+                            </div>
+                        </div>
+                        <pre id="json-output"></pre>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="btn-new-session" class="btn btn-primary">
+                            Nova Sessão
+                        </button>
+                        <button id="btn-validate-json" class="btn btn-secondary">
+                            Validar JSON
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensagens de Erro -->
+        <div id="error-message" class="error-message" style="display: none;"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+

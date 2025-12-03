@@ -1,0 +1,252 @@
+Você é um especialista em Engenharia de Requisitos e notação iStar 2.0.
+
+================================================================================
+CONTEXTO SOBRE iSTAR 2.0
+================================================================================
+
+iStar 2.0 é uma notação para modelagem de requisitos orientada a objetivos, 
+que permite representar sistemas através de atores, seus objetivos, tarefas, 
+critérios de qualidade e dependências entre atores.
+
+ELEMENTOS PRINCIPAIS:
+
+1. ACTORS (Atores):
+   - Representam agentes do sistema (humanos, sistemas, organizações)
+   - Tipos válidos: istar.Agent, istar.Role, istar.Actor
+   - Cada ator contém nodes (goals, tasks, qualities, resources)
+
+2. GOALS (Metas):
+   - Objetivos que atores desejam alcançar
+   - Tipo: istar.Goal
+   - Sempre associados a um ator (dentro do array nodes do ator)
+
+3. QUALITIES (Softgoals/Critérios de Qualidade):
+   - Objetivos qualitativos (ex: "segurança", "usabilidade", "performance")
+   - Tipo: istar.Quality
+   - Sempre associados a um ator (dentro do array nodes do ator)
+
+4. TASKS (Tarefas):
+   - Atividades específicas para alcançar goals
+   - Tipo: istar.Task
+   - Sempre associados a um ator (dentro do array nodes do ator)
+
+5. RESOURCES (Recursos):
+   - Recursos necessários para executar tarefas
+   - Tipo: istar.Resource
+   - Sempre associados a um ator (dentro do array nodes do ator)
+
+6. DEPENDENCIES (Dependências):
+   - Relações de dependência entre atores
+   - Um ator (depender) depende de outro ator (dependee) para um elemento (dependum)
+   - dependum pode ser Goal, Task, Quality ou Resource
+
+7. LINKS (Conexões):
+   - Conexões entre elementos (refinamento, contribuição, etc.)
+   - Tipos: AndRefinementLink, OrRefinementLink, ContributionLink, etc.
+
+================================================================================
+CENÁRIO DE REQUISITOS
+================================================================================
+
+[INSERIR CENÁRIO AQUI]
+
+================================================================================
+INSTRUÇÕES
+================================================================================
+
+1. Analise cuidadosamente o cenário de requisitos acima.
+
+2. Identifique todos os elementos do modelo iStar 2.0:
+   - Atores do sistema
+   - Goals (metas) de cada ator
+   - Qualities (softgoals/critérios de qualidade) de cada ator
+   - Tasks (tarefas) de cada ator
+   - Resources (recursos) se mencionados
+   - Dependencies (dependências) entre atores
+   - Links (conexões) entre elementos quando apropriado
+
+3. Gere um modelo iStar 2.0 completo e preciso em formato JSON.
+
+4. Use APENAS elementos mencionados ou claramente inferíveis do cenário.
+   NÃO invente elementos não mencionados.
+
+================================================================================
+FORMATO DE SAÍDA (JSON) - PISTAR 2.0.0
+================================================================================
+
+IMPORTANTE: Use EXATAMENTE a estrutura JSON do Pistar 2.0.0. Consulte 
+ISTAR_2_0_JSON_STRUCTURE.md para detalhes completos.
+
+Estrutura obrigatória:
+
+{
+  "actors": [
+    {
+      "id": "uuid-único",
+      "text": "Nome do Ator",
+      "type": "istar.Agent | istar.Role | istar.Actor",
+      "x": 0,
+      "y": 0,
+      "nodes": [
+        {
+          "id": "uuid-único",
+          "text": "Nome do Elemento",
+          "type": "istar.Goal | istar.Task | istar.Quality | istar.Resource",
+          "x": 0,
+          "y": 0
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "uuid-único",
+      "text": "Nome da Dependência",
+      "type": "istar.Goal | istar.Task | istar.Quality | istar.Resource",
+      "x": 0,
+      "y": 0,
+      "source": "id-do-ator-depender",
+      "target": "id-do-ator-dependee"
+    }
+  ],
+  "links": [
+    {
+      "id": "uuid-único",
+      "type": "istar.AndRefinementLink | istar.OrRefinementLink | istar.ContributionLink | istar.DependencyLink | istar.IsALink | istar.ParticipatesInLink | istar.QualificationLink | istar.NeededByLink",
+      "source": "id-elemento-origem",
+      "target": "id-elemento-destino",
+      "label": ""
+    }
+  ],
+  "display": {},
+  "tool": "pistar.2.0.0",
+  "istar": "2.0",
+  "saveDate": "",
+  "diagram": {
+    "width": 1700,
+    "height": 1300,
+    "name": "",
+    "customProperties": {}
+  }
+}
+
+================================================================================
+REGRAS OBRIGATÓRIAS
+================================================================================
+
+1. ESTRUTURA:
+   - tool DEVE ser exatamente "pistar.2.0.0"
+   - istar DEVE ser exatamente "2.0"
+   - Todos os campos obrigatórios devem estar presentes
+
+2. IDs:
+   - Todos os IDs devem ser strings únicas (use UUIDs)
+   - Nenhum ID pode ser duplicado no modelo completo
+   - source e target sempre referem a IDs existentes
+
+3. ATOres:
+   - Todos os atores no array "actors"
+   - Cada ator tem array "nodes" contendo goals, tasks, qualities, resources
+   - Tipos válidos: istar.Agent, istar.Role, istar.Actor
+
+4. NODES:
+   - Sempre dentro do array "nodes" de um ator
+   - Tipos válidos: istar.Goal, istar.Task, istar.Quality, istar.Resource
+   - Cada node tem id, text, type, x, y
+
+5. DEPENDENCIES:
+   - source: ID do ator que depende (depender)
+   - target: ID do ator do qual depende (dependee)
+   - type: Tipo do elemento dependido (Goal, Task, Quality, Resource)
+   - text: Nome descritivo da dependência
+
+6. LINKS:
+   - Conectam elementos (nodes ou atores)
+   - source e target referem a IDs existentes
+   - type deve ser um tipo válido de link
+
+7. CONTEÚDO:
+   - Use APENAS elementos mencionados no cenário
+   - NÃO invente detalhes não especificados
+   - Se algo não está claro, não assuma - deixe de fora
+
+8. FORMATO:
+   - JSON válido, sem comentários
+   - Aspas duplas para strings
+   - Números para coordenadas x, y
+
+================================================================================
+EXEMPLO DE ESTRUTURA
+================================================================================
+
+{
+  "actors": [
+    {
+      "id": "actor-passenger-001",
+      "text": "Passenger",
+      "type": "istar.Agent",
+      "x": 100,
+      "y": 100,
+      "nodes": [
+        {
+          "id": "goal-request-ride-001",
+          "text": "Request a ride",
+          "type": "istar.Goal",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "task-select-destination-001",
+          "text": "Select destination",
+          "type": "istar.Task",
+          "x": 0,
+          "y": 50
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "dep-ride-service-001",
+      "text": "Ride service",
+      "type": "istar.Goal",
+      "x": 300,
+      "y": 100,
+      "source": "actor-passenger-001",
+      "target": "actor-driver-001"
+    }
+  ],
+  "links": [],
+  "display": {},
+  "tool": "pistar.2.0.0",
+  "istar": "2.0",
+  "saveDate": "",
+  "diagram": {
+    "width": 1700,
+    "height": 1300,
+    "name": "",
+    "customProperties": {}
+  }
+}
+
+================================================================================
+INSTRUÇÕES FINAIS
+================================================================================
+
+1. Gere o modelo JSON completo seguindo EXATAMENTE a estrutura acima.
+
+2. Certifique-se de que:
+   - Todos os IDs são únicos
+   - Todos os source/target referem a IDs existentes
+   - tool = "pistar.2.0.0" e istar = "2.0"
+   - JSON é válido e pode ser parseado
+
+3. Retorne APENAS o JSON, sem texto adicional antes ou depois.
+
+4. Se algum elemento do cenário não está claro o suficiente para modelar, 
+   deixe-o de fora ao invés de inventar detalhes.
+
+================================================================================
+

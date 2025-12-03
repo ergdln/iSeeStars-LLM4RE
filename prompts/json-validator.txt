@@ -1,0 +1,222 @@
+Você é um validador especializado em modelos iStar 2.0 no formato Pistar 2.0.0.
+
+================================================================================
+SUA TAREFA
+================================================================================
+
+Analise o modelo JSON fornecido abaixo e valide se ele está em conformidade 
+com a estrutura JSON do Pistar 2.0.0 para modelos iStar 2.0.
+
+Identifique TODOS os problemas encontrados e forneça um relatório detalhado 
+de validação.
+
+================================================================================
+MODELO JSON A VALIDAR
+================================================================================
+
+[INSERIR MODELO JSON AQUI]
+
+================================================================================
+ESTRUTURA ESPERADA (PISTAR 2.0.0)
+================================================================================
+
+A estrutura JSON deve seguir EXATAMENTE este formato:
+
+{
+  "actors": [
+    {
+      "id": "string-único",
+      "text": "string",
+      "type": "istar.Actor | istar.Agent | istar.Role",
+      "x": number,
+      "y": number,
+      "nodes": [
+        {
+          "id": "string-único",
+          "text": "string",
+          "type": "istar.Goal | istar.Task | istar.Quality | istar.Resource",
+          "x": number,
+          "y": number
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "string-único",
+      "text": "string",
+      "type": "istar.Goal | istar.Task | istar.Quality | istar.Resource",
+      "x": number,
+      "y": number,
+      "source": "id-ator-existente",
+      "target": "id-ator-existente"
+    }
+  ],
+  "links": [
+    {
+      "id": "string-único",
+      "type": "istar.AndRefinementLink | istar.OrRefinementLink | istar.ContributionLink | istar.DependencyLink | istar.IsALink | istar.ParticipatesInLink | istar.QualificationLink | istar.NeededByLink",
+      "source": "id-existente",
+      "target": "id-existente",
+      "label": "string-opcional"
+    }
+  ],
+  "display": {},
+  "tool": "pistar.2.0.0",
+  "istar": "2.0",
+  "saveDate": "string",
+  "diagram": {
+    "width": number,
+    "height": number,
+    "name": "string",
+    "customProperties": {}
+  }
+}
+
+================================================================================
+CRITÉRIOS DE VALIDAÇÃO
+================================================================================
+
+1. VALIDAÇÃO ESTRUTURAL:
+   - [ ] JSON é sintaticamente válido
+   - [ ] Todos os campos obrigatórios estão presentes
+   - [ ] Tipos de dados estão corretos (string, number, array, object)
+   - [ ] tool é exatamente "pistar.2.0.0"
+   - [ ] istar é exatamente "2.0"
+
+2. VALIDAÇÃO DE ATOres:
+   - [ ] Array "actors" existe e é um array
+   - [ ] Cada ator tem: id, text, type, x, y, nodes
+   - [ ] type é um dos: istar.Actor, istar.Agent, istar.Role
+   - [ ] nodes é um array
+   - [ ] Todos os IDs de atores são únicos
+
+3. VALIDAÇÃO DE NODES:
+   - [ ] Cada node tem: id, text, type, x, y
+   - [ ] type é um dos: istar.Goal, istar.Task, istar.Quality, istar.Resource
+   - [ ] Todos os IDs de nodes são únicos
+   - [ ] Nodes estão dentro do array "nodes" de um ator
+
+4. VALIDAÇÃO DE DEPENDENCIES:
+   - [ ] Array "dependencies" existe e é um array
+   - [ ] Cada dependency tem: id, text, type, x, y, source, target
+   - [ ] source é um ID de ator existente
+   - [ ] target é um ID de ator existente
+   - [ ] type é válido (Goal, Task, Quality, Resource)
+   - [ ] Todos os IDs de dependencies são únicos
+
+5. VALIDAÇÃO DE LINKS:
+   - [ ] Array "links" existe e é um array
+   - [ ] Cada link tem: id, type, source, target
+   - [ ] type é um tipo válido de link
+   - [ ] source é um ID existente (ator ou node)
+   - [ ] target é um ID existente (ator ou node)
+   - [ ] Todos os IDs de links são únicos
+
+6. VALIDAÇÃO DE INTEGRIDADE REFERENCIAL:
+   - [ ] Todos os IDs são únicos em todo o modelo
+   - [ ] Todos os source em dependencies referem a IDs de atores existentes
+   - [ ] Todos os target em dependencies referem a IDs de atores existentes
+   - [ ] Todos os source em links referem a IDs existentes
+   - [ ] Todos os target em links referem a IDs existentes
+
+7. VALIDAÇÃO DE TIPOS:
+   - [ ] Tipos de atores são válidos
+   - [ ] Tipos de nodes são válidos
+   - [ ] Tipos de dependencies são válidos
+   - [ ] Tipos de links são válidos
+
+8. VALIDAÇÃO DE ESTRUTURA ADICIONAL:
+   - [ ] "orphans" é um array (geralmente vazio)
+   - [ ] "display" é um object
+   - [ ] "diagram" tem: width, height, name, customProperties
+   - [ ] "saveDate" é uma string (pode estar vazia)
+
+================================================================================
+FORMATO DO RELATÓRIO DE VALIDAÇÃO
+================================================================================
+
+Forneça um relatório estruturado no seguinte formato:
+
+STATUS GERAL: [VÁLIDO | PARCIALMENTE VÁLIDO | INVÁLIDO]
+
+PROBLEMAS ENCONTRADOS:
+1. [Categoria]: [Descrição do problema]
+   - Localização: [onde está o problema]
+   - Severidade: [CRÍTICO | ALTO | MÉDIO | BAIXO]
+   - Sugestão: [como corrigir]
+
+2. [Categoria]: [Descrição do problema]
+   ...
+
+ESTATÍSTICAS:
+- Total de atores: [número]
+- Total de nodes: [número]
+- Total de dependencies: [número]
+- Total de links: [número]
+- IDs únicos: [sim/não]
+- Referências válidas: [sim/não]
+
+DETALHES POR CATEGORIA:
+[Detalhes específicos de cada categoria de validação]
+
+================================================================================
+INSTRUÇÕES
+================================================================================
+
+1. Analise o modelo JSON cuidadosamente
+2. Verifique cada critério de validação
+3. Identifique TODOS os problemas
+4. Classifique a severidade de cada problema
+5. Forneça sugestões de correção quando possível
+6. Calcule estatísticas do modelo
+7. Forneça um veredito final (VÁLIDO, PARCIALMENTE VÁLIDO, ou INVÁLIDO)
+
+CLASSIFICAÇÃO:
+- VÁLIDO: Passa todas as validações
+- PARCIALMENTE VÁLIDO: Passa validação estrutural mas tem erros de integridade
+- INVÁLIDO: Falha validação estrutural ou tem muitos erros críticos
+
+================================================================================
+EXEMPLO DE RELATÓRIO
+================================================================================
+
+STATUS GERAL: PARCIALMENTE VÁLIDO
+
+PROBLEMAS ENCONTRADOS:
+1. Estrutura: Campo "tool" tem valor incorreto
+   - Localização: Raiz do JSON
+   - Severidade: CRÍTICO
+   - Sugestão: Alterar "tool" para "pistar.2.0.0"
+
+2. Integridade Referencial: ID "actor-xyz" referenciado mas não existe
+   - Localização: dependency "dep-001", campo "source"
+   - Severidade: ALTO
+   - Sugestão: Verificar se o ID do ator está correto ou criar o ator
+
+3. Tipos: Tipo de ator inválido "agent" (deveria ser "istar.Agent")
+   - Localização: actor "actor-001", campo "type"
+   - Severidade: ALTO
+   - Sugestão: Alterar para "istar.Agent"
+
+ESTATÍSTICAS:
+- Total de atores: 2
+- Total de nodes: 5
+- Total de dependencies: 1
+- Total de links: 0
+- IDs únicos: Não (duplicado: "node-001")
+- Referências válidas: Não
+
+================================================================================
+INSTRUÇÕES FINAIS
+================================================================================
+
+1. Seja minucioso na análise
+2. Identifique TODOS os problemas, não apenas os primeiros
+3. Seja específico sobre localização e severidade
+4. Forneça sugestões práticas de correção
+5. Classifique o modelo corretamente baseado nos problemas encontrados
+
+================================================================================
+
