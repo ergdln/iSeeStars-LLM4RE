@@ -131,42 +131,96 @@ async function askNextQuestion() {
     elements.chatInputContainer.style.display = 'none';
     
     try {
+        // Criar AbortController para timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 90000); // 90 segundos (1.5 minutos)
+        
         const response = await fetch('/api/ask-question', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            signal: controller.signal
         });
         
+        clearTimeout(timeoutId);
+        
         if (!response.ok) {
-            const error = await response.json();
+            const error = await response.json().catch(() => ({ error: 'Erro desconhecido' }));
             throw new Error(error.error || 'Erro ao gerar pergunta');
         }
         
         const data = await response.json();
         
-        if (data.pronto_para_gerar) {
-            // IA indicou que tem informações suficientes
+        if (data.pronto_para_gerar && !data.ultima_pergunta) {
+            // IA indicou que tem informações suficientes E não é a última pergunta
             addMessage('ai', data.mensagem || 'Tenho informações suficientes para gerar o modelo.');
             state.prontoParaGerar = true;
             elements.questionsButtons.style.display = 'flex';
             elements.chatInputContainer.style.display = 'none';
         } else {
-            // Adicionar pergunta(s) ao chat
-            if (data.perguntas && data.perguntas.length > 0) {
-                data.perguntas.forEach(pergunta => {
-                    addMessage('ai', pergunta);
-                });
+            // É uma pergunta normal ou a última pergunta (que ainda precisa de resposta)
+            if (data.ultima_pergunta) {
+                // É a última pergunta - mostrar pergunta E campo de resposta
+                if (data.perguntas && data.perguntas.length > 0) {
+                    data.perguntas.forEach(pergunta => {
+                        addMessage('ai', pergunta);
+                    });
+                } else {
+                    addMessage('ai', data.mensagem);
+                }
+                addMessage('system', '⚠️ Esta é a última pergunta. Após responder, você poderá gerar o modelo.');
+                state.prontoParaGerar = true; // Marca como pronto, mas ainda precisa da resposta
+                elements.chatInputContainer.style.display = 'flex';
+                elements.chatInput.focus();
             } else {
-                addMessage('ai', data.mensagem);
+                // Adicionar pergunta(s) ao chat
+                if (data.perguntas && data.perguntas.length > 0) {
+                    data.perguntas.forEach(pergunta => {
+                        addMessage('ai', pergunta);
+                    });
+                } else {
+                    addMessage('ai', data.mensagem);
+                }
+                
+                // Mostrar contador de perguntas se disponível
+                if (data.num_perguntas !== undefined) {
+                    const perguntasRestantes = 5 - data.num_perguntas;
+                    if (perguntasRestantes > 0) {
+                        addMessage('system', `Perguntas restantes: ${perguntasRestantes} de 5`);
+                    }
+                }
+                
+                elements.chatInputContainer.style.display = 'flex';
+                elements.chatInput.focus();
             }
-            elements.chatInputContainer.style.display = 'flex';
-            elements.chatInput.focus();
         }
         
     } catch (error) {
-        showError(error.message);
-        showStep('input');
+        console.error('Erro em askNextQuestion:', error);
+        
+        let errorMessage = 'Erro ao gerar pergunta. ';
+        if (error.name === 'AbortError') {
+            errorMessage += 'A requisição demorou mais de 2 minutos. Isso pode acontecer se:\n';
+            errorMessage += '• O prompt está muito grande\n';
+            errorMessage += '• Há problemas de conexão com a internet\n';
+            errorMessage += '• A API da OpenAI está lenta\n\n';
+            errorMessage += 'Tente novamente ou use um cenário mais curto.';
+        } else if (error.message) {
+            // Tentar extrair mensagem de erro do servidor
+            try {
+                const errorData = JSON.parse(error.message);
+                errorMessage += errorData.error || error.message;
+            } catch {
+                errorMessage += error.message;
+            }
+        } else {
+            errorMessage += 'Erro desconhecido. Verifique o console do navegador (F12) e os logs do servidor para mais detalhes.';
+        }
+        
+        showError(errorMessage);
+        elements.loadingQuestions.style.display = 'none';
+        elements.chatInputContainer.style.display = 'flex';
     } finally {
         elements.loadingQuestions.style.display = 'none';
     }
@@ -221,8 +275,21 @@ async function handleSendAnswer() {
             throw new Error(error.error || 'Erro ao enviar resposta');
         }
         
-        // Pedir próxima pergunta
-        await askNextQuestion();
+        const data = await response.json();
+        
+        // Verificar se está pronto para gerar após enviar resposta
+        if (data.pronto_para_gerar || state.prontoParaGerar) {
+            elements.questionsButtons.style.display = 'flex';
+            elements.chatInputContainer.style.display = 'none';
+            if (data.mensagem) {
+                addMessage('system', data.mensagem);
+            } else {
+                addMessage('system', '✅ Todas as perguntas foram respondidas! Você pode agora gerar o modelo iStar 2.0 clicando no botão abaixo.');
+            }
+        } else {
+            // Pedir próxima pergunta
+            await askNextQuestion();
+        }
         
     } catch (error) {
         showError(error.message);

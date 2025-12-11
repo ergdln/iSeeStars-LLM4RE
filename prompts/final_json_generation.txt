@@ -320,8 +320,33 @@ INSTRUÇÕES FINAIS
 ⚠️ LEMBRE-SE: O modelo deve refletir FIELMENTE todas as informações fornecidas 
 pelo usuário durante a conversa, não apenas o cenário inicial.
 
+================================================================================
+EXEMPLO DE USO DO CONTEXTO
+================================================================================
+
+Se na conversa o usuário respondeu:
+
+Q: Quais são as principais tarefas que os usuários precisam realizar?
+A: Selecionar origem e destino, Solicitar a corrida, Monitorar o motorista, 
+   Realizar o pagamento, Avaliar o motorista
+
+Então o modelo DEVE ter EXATAMENTE essas 5 Tasks como nodes dentro do ator "Usuário":
+- Task: "Selecionar origem e destino"
+- Task: "Solicitar a corrida"  
+- Task: "Monitorar o motorista"
+- Task: "Realizar o pagamento"
+- Task: "Avaliar o motorista"
+
+E criar links apropriados (AndRefinementLink) conectando essas tasks ao Goal principal.
+
+NÃO crie apenas uma task genérica "Usar aplicativo" - crie TODAS as tasks específicas 
+mencionadas pelo usuário.
+
+================================================================================
+
 AGORA: Analise toda a conversa acima e gere o modelo iStar 2.0 completo em formato JSON, 
-incluindo TODOS os elementos mencionados pelo usuário.
+incluindo TODOS os elementos mencionados pelo usuário. Seja ESPECÍFICO e use as informações 
+EXATAS fornecidas nas respostas.
 
 ================================================================================
 
