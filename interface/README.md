@@ -159,3 +159,6 @@ interface/
 - Registrar todas as interações para análise
 - Considerar internacionalização (português/inglês)
 
+
+
+

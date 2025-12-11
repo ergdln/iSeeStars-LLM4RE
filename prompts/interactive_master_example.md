@@ -394,3 +394,6 @@ Tenho informações suficientes. Gerando modelo iStar 2.0...
 
 **Nota**: Este é um exemplo. O número e tipo de perguntas podem variar dependendo do cenário e das respostas do usuário.
 
+
+
+

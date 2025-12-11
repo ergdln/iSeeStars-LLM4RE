@@ -116,3 +116,6 @@ evaluation/
 - Resultados devem ser estatisticamente significativos (se possível)
 - Documentar limitações das métricas
 
+
+
+

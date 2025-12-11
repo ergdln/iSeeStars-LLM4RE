@@ -267,3 +267,6 @@ iSeeStars-LLM4RE/
 - O foco está na comparação de abordagens de prompting
 - Resultados serão documentados para publicação acadêmica
 
+
+
+

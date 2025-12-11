@@ -99,3 +99,6 @@ experiments/
 - Configurações devem ser versionadas
 - Logs devem ser mantidos para análise posterior
 
+
+
+

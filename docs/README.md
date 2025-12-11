@@ -170,3 +170,6 @@ docs/
 - Manter versões dos documentos importantes
 - Considerar diferentes audiências (técnica vs. executiva)
 
+
+
+

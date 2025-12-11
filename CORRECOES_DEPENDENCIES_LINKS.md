@@ -149,3 +149,6 @@ O JSON corrigido deve ter:
 - O tipo de dependency indica **o que** o ator depende (um Goal? uma Task? etc)
 - O tipo de link indica **como** os elementos se relacionam (refinamento, contribuição, etc)
 
+
+
+

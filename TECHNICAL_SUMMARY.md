@@ -322,3 +322,6 @@ O projeto **I See Stars** investiga como Large Language Models (LLMs) podem apoi
 4. Desenvolver métricas de avaliação automatizadas
 5. Criar pipeline de experimentação completo
 
+
+
+

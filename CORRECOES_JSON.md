@@ -148,3 +148,6 @@ O JSON corrigido deve ter:
 - IDs devem ser UUIDs v4 no formato: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
 - O script de correção mantém todas as referências entre elementos
 
+
+
+

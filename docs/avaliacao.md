@@ -457,3 +457,6 @@ Se múltiplos cenários:
 **Versão**: 1.0  
 **Status**: Guia de avaliação completo
 
+
+
+

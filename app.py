@@ -151,14 +151,28 @@ def corrigir_json(dados):
         dados_corrigidos['links'] = links_validos
     
     # Garantir campos obrigatórios
-    if 'tool' not in dados_corrigidos or dados_corrigidos['tool'] != 'pistar.2.0.0':
+    if 'tool' not in dados_corrigidos:
         dados_corrigidos['tool'] = 'pistar.2.0.0'
+    elif dados_corrigidos['tool'] not in ['pistar.2.0.0', 'pistar.2.1.0']:
+        dados_corrigidos['tool'] = 'pistar.2.0.0'
+    
     if 'istar' not in dados_corrigidos or dados_corrigidos['istar'] != '2.0':
         dados_corrigidos['istar'] = '2.0'
-    if 'display' not in dados_corrigidos:
-        dados_corrigidos['display'] = {}
+    
     if 'orphans' not in dados_corrigidos:
         dados_corrigidos['orphans'] = []
+    
+    if 'display' not in dados_corrigidos:
+        dados_corrigidos['display'] = {}
+    
+    # Garantir que display tenha informações básicas se necessário
+    if not dados_corrigidos['display'] and 'actors' in dados_corrigidos:
+        # Adicionar informações básicas de display para atores (opcional)
+        for actor in dados_corrigidos['actors']:
+            actor_id = actor.get('id')
+            if actor_id:
+                dados_corrigidos['display'][actor_id] = {'collapsed': False}
+    
     if 'diagram' not in dados_corrigidos:
         dados_corrigidos['diagram'] = {
             "width": 1700,
@@ -166,6 +180,11 @@ def corrigir_json(dados):
             "name": "",
             "customProperties": {}
         }
+    elif 'customProperties' not in dados_corrigidos['diagram']:
+        dados_corrigidos['diagram']['customProperties'] = {}
+    
+    if 'saveDate' not in dados_corrigidos:
+        dados_corrigidos['saveDate'] = ""
     
     return dados_corrigidos
 
@@ -189,31 +208,43 @@ def start_session():
     session['cenario'] = cenario
     session['respostas'] = []
     session['perguntas'] = []
-    session['estado'] = 'gerando_perguntas'
+    session['conversa'] = []  # Histórico da conversa
+    session['estado'] = 'conversando'
     
     return jsonify({
         'session_id': session_id,
         'status': 'success'
     })
 
-@app.route('/api/generate-questions', methods=['POST'])
-def generate_questions():
-    """Gera perguntas de clarificação baseadas no cenário"""
+@app.route('/api/ask-question', methods=['POST'])
+def ask_question():
+    """Gera a próxima pergunta baseada no contexto da conversa"""
     try:
         cenario = session.get('cenario')
+        conversa = session.get('conversa', [])
+        
         if not cenario:
             return jsonify({'error': 'Cenário não encontrado'}), 400
         
-        # Carregar prompt interativo
-        prompt_template = ler_arquivo('prompts/interactive_master.txt')
+        # Carregar prompt conversacional
+        prompt_template = ler_arquivo('prompts/conversational_elicitation.txt')
         if not prompt_template:
-            return jsonify({'error': 'Prompt interativo não encontrado'}), 500
+            return jsonify({'error': 'Prompt conversacional não encontrado'}), 500
         
-        # Substituir cenário no prompt
+        # Construir histórico da conversa
+        historico_texto = ""
+        if conversa:
+            for item in conversa:
+                if item['tipo'] == 'pergunta':
+                    historico_texto += f"IA: {item['texto']}\n\n"
+                elif item['tipo'] == 'resposta':
+                    historico_texto += f"Usuário: {item['texto']}\n\n"
+        else:
+            historico_texto = "(Esta é a primeira interação - ainda não há histórico)"
+        
+        # Substituir placeholders no prompt
         prompt_completo = prompt_template.replace('[INSERIR CENÁRIO AQUI]', cenario)
-        
-        # Adicionar instrução para gerar primeira rodada de perguntas
-        prompt_completo += "\n\nIMPORTANTE: Neste momento, gere APENAS a primeira rodada de 5-8 perguntas de clarificação. Numere as perguntas (1, 2, 3, etc). Não gere o modelo JSON ainda."
+        prompt_completo = prompt_completo.replace('[INSERIR HISTÓRICO AQUI]', historico_texto)
         
         # Chamar API
         try:
@@ -230,70 +261,100 @@ def generate_questions():
                     {"role": "user", "content": prompt_completo}
                 ],
                 temperature=0.7,
-                max_tokens=1500
+                max_tokens=800
             )
         except Exception as e:
             return jsonify({'error': f'Erro ao chamar API OpenAI: {str(e)}'}), 500
         
-        resposta_texto = response.choices[0].message.content
+        resposta_texto = response.choices[0].message.content.strip()
         
-        # Extrair perguntas (simples: dividir por linhas numeradas)
+        # Verificar se a IA indicou que tem informações suficientes
+        if 'informações suficientes' in resposta_texto.lower() or 'gerando modelo' in resposta_texto.lower():
+            session['estado'] = 'pronto_para_gerar'
+            return jsonify({
+                'pergunta': None,
+                'mensagem': resposta_texto,
+                'pronto_para_gerar': True,
+                'status': 'success'
+            })
+        
+        # Extrair pergunta(s) da resposta
         perguntas = []
         linhas = resposta_texto.split('\n')
         for linha in linhas:
             linha = linha.strip()
-            # Procurar por linhas que começam com número seguido de ponto ou parêntese
-            if linha and (linha[0].isdigit() or linha.startswith('•') or linha.startswith('-') or '?' in linha):
-                # Limpar formatação
+            if linha and '?' in linha:
+                # Limpar formatação inicial
                 linha_limpa = linha.lstrip('0123456789. •-()[]').strip()
-                if linha_limpa and '?' in linha_limpa:
+                if linha_limpa and len(linha_limpa) > 10:
                     perguntas.append(linha_limpa)
         
-        # Se não encontrou perguntas numeradas, usar a resposta completa
+        # Se não encontrou perguntas claras, usar a resposta completa
         if not perguntas:
-            # Dividir por parágrafos que terminam com ?
+            # Tentar encontrar a primeira frase com ?
             partes = resposta_texto.split('?')
             for parte in partes:
                 parte_limpa = parte.strip()
                 if parte_limpa and len(parte_limpa) > 20:
                     perguntas.append(parte_limpa + '?')
-                    if len(perguntas) >= 8:
-                        break
+                    break
         
-        # Limitar a 8 perguntas
-        perguntas = perguntas[:8]
+        # Limitar a 2 perguntas por vez
+        perguntas = perguntas[:2]
         
-        session['perguntas'] = perguntas
-        session['estado'] = 'aguardando_respostas'
+        if not perguntas:
+            # Se ainda não encontrou, usar a resposta completa
+            perguntas = [resposta_texto]
+        
+        # Adicionar pergunta(s) ao histórico
+        for pergunta in perguntas:
+            conversa.append({
+                'tipo': 'pergunta',
+                'texto': pergunta,
+                'timestamp': str(uuid.uuid4())
+            })
+        
+        session['conversa'] = conversa
+        session['estado'] = 'aguardando_resposta'
         
         return jsonify({
             'perguntas': perguntas,
-            'resposta_completa': resposta_texto,
+            'mensagem': resposta_texto,
+            'pronto_para_gerar': False,
             'status': 'success'
         })
     
     except Exception as e:
         import traceback
         error_details = traceback.format_exc()
-        print(f"Erro em generate_questions: {error_details}")
-        return jsonify({'error': f'Erro ao gerar perguntas: {str(e)}'}), 500
+        print(f"Erro em ask_question: {error_details}")
+        return jsonify({'error': f'Erro ao gerar pergunta: {str(e)}'}), 500
 
 @app.route('/api/submit-answer', methods=['POST'])
 def submit_answer():
     """Submete uma resposta do usuário"""
     data = request.json
-    pergunta_id = data.get('pergunta_id')
     resposta = data.get('resposta', '').strip()
     
     if not resposta:
         return jsonify({'error': 'Resposta não pode estar vazia'}), 400
     
+    # Adicionar resposta ao histórico da conversa
+    conversa = session.get('conversa', [])
+    conversa.append({
+        'tipo': 'resposta',
+        'texto': resposta,
+        'timestamp': str(uuid.uuid4())
+    })
+    session['conversa'] = conversa
+    
+    # Também adicionar à lista de respostas (para compatibilidade)
     respostas = session.get('respostas', [])
     respostas.append({
-        'pergunta_id': pergunta_id,
         'resposta': resposta
     })
     session['respostas'] = respostas
+    session['estado'] = 'conversando'
     
     return jsonify({'status': 'success'})
 
@@ -312,36 +373,70 @@ def generate_model():
         if not prompt_template:
             return jsonify({'error': 'Prompt de geração não encontrado'}), 500
         
-        # Construir contexto com cenário e respostas
+        # Construir contexto completo com cenário e histórico da conversa
         contexto_cenario = cenario
         
-        contexto_respostas = ""
-        if respostas:
+        # Usar histórico da conversa se disponível, senão usar respostas antigas
+        conversa = session.get('conversa', [])
+        contexto_completo = ""
+        
+        # Construir contexto completo da conversa
+        if conversa:
+            contexto_completo = "=== HISTÓRICO COMPLETO DA CONVERSA ===\n\n"
+            for item in conversa:
+                if item['tipo'] == 'pergunta':
+                    contexto_completo += f"🤖 IA: {item['texto']}\n\n"
+                elif item['tipo'] == 'resposta':
+                    contexto_completo += f"👤 USUÁRIO: {item['texto']}\n\n"
+                elif item['tipo'] == 'system':
+                    contexto_completo += f"ℹ️ {item['texto']}\n\n"
+        elif respostas:
+            # Fallback para formato antigo
             perguntas = session.get('perguntas', [])
+            contexto_completo = "=== PERGUNTAS E RESPOSTAS ===\n\n"
             for i, resp in enumerate(respostas):
-                pergunta_texto = perguntas[resp['pergunta_id']] if resp['pergunta_id'] < len(perguntas) else f"Pergunta {resp['pergunta_id'] + 1}"
-                contexto_respostas += f"Q: {pergunta_texto}\nA: {resp['resposta']}\n\n"
+                pergunta_texto = perguntas[resp.get('pergunta_id', i)] if resp.get('pergunta_id') and resp['pergunta_id'] < len(perguntas) else f"Pergunta {i + 1}"
+                contexto_completo += f"Q: {pergunta_texto}\nA: {resp.get('resposta', resp)}\n\n"
         
         # Substituir placeholders no prompt
         prompt_completo = prompt_template.replace('[CENÁRIO ORIGINAL]', contexto_cenario)
         
-        # Adicionar respostas se houver
-        if contexto_respostas:
-            # Se houver placeholder para respostas, substituir; senão, adicionar após o cenário
-            if '[RESPOSTAS DO USUÁRIO]' in prompt_completo:
-                prompt_completo = prompt_completo.replace('[RESPOSTAS DO USUÁRIO]', contexto_respostas)
-            elif '[LISTA DE ATORES]' in prompt_completo:
-                # Adicionar respostas antes da seção de informações coletadas
+        # Adicionar contexto completo da conversa de forma explícita
+        if contexto_completo:
+            # Primeiro, tentar substituir o placeholder específico
+            if 'HISTÓRICO COMPLETO DA CONVERSA:\n[RESPOSTAS DO USUÁRIO]' in prompt_completo:
                 prompt_completo = prompt_completo.replace(
-                    '- Cenário original: [CENÁRIO ORIGINAL]',
-                    f"- Cenário original: {contexto_cenario}\n- Respostas do usuário:\n{contexto_respostas}"
+                    'HISTÓRICO COMPLETO DA CONVERSA:\n[RESPOSTAS DO USUÁRIO]',
+                    f'HISTÓRICO COMPLETO DA CONVERSA:\n{contexto_completo}'
                 )
+            elif '[RESPOSTAS DO USUÁRIO]' in prompt_completo:
+                prompt_completo = prompt_completo.replace('[RESPOSTAS DO USUÁRIO]', contexto_completo)
             else:
-                # Adicionar no início da seção de informações coletadas
+                # Se não encontrou placeholder, adicionar após o cenário
                 prompt_completo = prompt_completo.replace(
-                    'INFORMAÇÕES COLETADAS:',
-                    f'INFORMAÇÕES COLETADAS:\n\nRESPOSTAS DO USUÁRIO:\n{contexto_respostas}'
+                    'CENÁRIO ORIGINAL:\n[CENÁRIO ORIGINAL]',
+                    f'CENÁRIO ORIGINAL:\n{contexto_cenario}\n\nHISTÓRICO COMPLETO DA CONVERSA:\n{contexto_completo}'
                 )
+            
+            # Log para debug (remover em produção se necessário)
+            print(f"\n{'='*80}")
+            print("CONTEXTO DA CONVERSA ENVIADO PARA GERAÇÃO:")
+            print(f"{'='*80}")
+            print(contexto_completo[:500] + "..." if len(contexto_completo) > 500 else contexto_completo)
+            print(f"{'='*80}\n")
+        
+        # Adicionar instrução final explícita sobre usar todo o contexto
+        if contexto_completo:
+            prompt_completo += "\n\n" + "="*80 + "\n"
+            prompt_completo += "INSTRUÇÃO FINAL CRÍTICA:\n"
+            prompt_completo += "="*80 + "\n"
+            prompt_completo += "Você recebeu uma conversa completa acima. O modelo JSON que você gerar DEVE:\n"
+            prompt_completo += "1. Incluir TODAS as tarefas, recursos, objetivos e qualidades mencionados pelo usuário\n"
+            prompt_completo += "2. Usar os nomes e descrições EXATAS fornecidas pelo usuário\n"
+            prompt_completo += "3. Criar links e dependencies baseados nas informações da conversa\n"
+            prompt_completo += "4. NÃO ignorar ou simplificar informações detalhadas fornecidas\n"
+            prompt_completo += "5. Ser completo e refletir fielmente toda a conversa\n"
+            prompt_completo += "\n"
         
         # Garantir que o prompt tenha instrução clara
         if 'Retorne APENAS o JSON' not in prompt_completo:
@@ -362,7 +457,7 @@ def generate_model():
                     {"role": "user", "content": prompt_completo}
                 ],
                 temperature=0.3,
-                max_tokens=4000
+                max_tokens=8000  # Aumentado para permitir modelos mais completos
             )
         except Exception as e:
             return jsonify({'error': f'Erro ao chamar API OpenAI: {str(e)}'}), 500

@@ -101,3 +101,6 @@ Manter arquivo `models_index.json` com:
 - Manter backup de modelos importantes
 - Considerar compressão para modelos grandes
 
+
+
+

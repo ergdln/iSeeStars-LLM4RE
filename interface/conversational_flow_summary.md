@@ -201,3 +201,6 @@ def etapa_2_perguntas_elicitação(cenario):
 
 **Documento de referência rápida para implementação da interface conversacional**
 
+
+
+

@@ -67,3 +67,6 @@ prompts/
 - Cada prompt deve incluir metadados (data, autor, propósito)
 - Considerar diferentes modelos LLM podem precisar de ajustes
 
+
+
+

@@ -127,3 +127,6 @@ iSeeStars-LLM4RE/
 - **Valide o JSON** antes de usar no iStar
 - O JSON gerado já está corrigido e pronto para uso
 
+
+
+

@@ -2,9 +2,9 @@
 let state = {
     sessionId: null,
     cenario: null,
-    perguntas: [],
-    respostas: {},
-    modelo: null
+    conversa: [],
+    modelo: null,
+    prontoParaGerar: false
 };
 
 // Elementos DOM
@@ -16,10 +16,12 @@ const elements = {
     btnStart: document.getElementById('btn-start'),
     btnLoadExample: document.getElementById('btn-load-example'),
     loadingQuestions: document.getElementById('loading-questions'),
-    questionsContainer: document.getElementById('questions-container'),
+    chatMessages: document.getElementById('chat-messages'),
+    chatInput: document.getElementById('chat-input'),
+    chatInputContainer: document.getElementById('chat-input-container'),
+    btnSendAnswer: document.getElementById('btn-send-answer'),
     questionsButtons: document.getElementById('questions-buttons'),
-    btnSubmitAnswers: document.getElementById('btn-submit-answers'),
-    btnAddMoreQuestions: document.getElementById('btn-add-more-questions'),
+    btnGenerateModel: document.getElementById('btn-generate-model'),
     loadingModel: document.getElementById('loading-model'),
     modelContainer: document.getElementById('model-container'),
     jsonOutput: document.getElementById('json-output'),
@@ -39,12 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
     elements.btnStart.addEventListener('click', handleStart);
     elements.btnLoadExample.addEventListener('click', loadExample);
-    elements.btnSubmitAnswers.addEventListener('click', handleGenerateModel);
-    elements.btnAddMoreQuestions.addEventListener('click', handleAddMoreQuestions);
+    elements.btnSendAnswer.addEventListener('click', handleSendAnswer);
+    elements.btnGenerateModel.addEventListener('click', handleGenerateModel);
     elements.btnCopyJson.addEventListener('click', copyJson);
     elements.btnDownloadJson.addEventListener('click', downloadJson);
     elements.btnNewSession.addEventListener('click', resetSession);
     elements.btnValidateJson.addEventListener('click', validateJson);
+    
+    // Permitir enviar resposta com Enter (Shift+Enter para nova linha)
+    elements.chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSendAnswer();
+        }
+    });
 }
 
 function showError(message) {
@@ -104,9 +114,10 @@ async function handleStart() {
         const data = await response.json();
         state.sessionId = data.session_id;
         
-        // Gerar perguntas
+        // Iniciar conversa
         showStep('questions');
-        await generateQuestions();
+        addMessage('system', `Cenário recebido: "${state.cenario.substring(0, 100)}..."`);
+        await askNextQuestion();
         
     } catch (error) {
         showError(error.message);
@@ -115,13 +126,12 @@ async function handleStart() {
     }
 }
 
-async function generateQuestions() {
+async function askNextQuestion() {
     elements.loadingQuestions.style.display = 'block';
-    elements.questionsContainer.innerHTML = '';
-    elements.questionsButtons.style.display = 'none';
+    elements.chatInputContainer.style.display = 'none';
     
     try {
-        const response = await fetch('/api/generate-questions', {
+        const response = await fetch('/api/ask-question', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -130,14 +140,29 @@ async function generateQuestions() {
         
         if (!response.ok) {
             const error = await response.json();
-            throw new Error(error.error || 'Erro ao gerar perguntas');
+            throw new Error(error.error || 'Erro ao gerar pergunta');
         }
         
         const data = await response.json();
-        state.perguntas = data.perguntas;
         
-        // Renderizar perguntas
-        renderQuestions();
+        if (data.pronto_para_gerar) {
+            // IA indicou que tem informações suficientes
+            addMessage('ai', data.mensagem || 'Tenho informações suficientes para gerar o modelo.');
+            state.prontoParaGerar = true;
+            elements.questionsButtons.style.display = 'flex';
+            elements.chatInputContainer.style.display = 'none';
+        } else {
+            // Adicionar pergunta(s) ao chat
+            if (data.perguntas && data.perguntas.length > 0) {
+                data.perguntas.forEach(pergunta => {
+                    addMessage('ai', pergunta);
+                });
+            } else {
+                addMessage('ai', data.mensagem);
+            }
+            elements.chatInputContainer.style.display = 'flex';
+            elements.chatInput.focus();
+        }
         
     } catch (error) {
         showError(error.message);
@@ -147,68 +172,72 @@ async function generateQuestions() {
     }
 }
 
-function renderQuestions() {
-    elements.questionsContainer.innerHTML = '';
+function addMessage(tipo, texto) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chat-message chat-message-${tipo}`;
     
-    state.perguntas.forEach((pergunta, index) => {
-        const questionDiv = document.createElement('div');
-        questionDiv.className = 'question-item';
-        questionDiv.innerHTML = `
-            <h3>Pergunta ${index + 1}</h3>
-            <div class="question-text">${pergunta}</div>
-            <textarea 
-                id="answer-${index}" 
-                placeholder="Digite sua resposta aqui..."
-                data-question-id="${index}"
-            ></textarea>
-        `;
-        
-        // Adicionar listener para atualizar estado
-        const textarea = questionDiv.querySelector('textarea');
-        textarea.addEventListener('input', () => {
-            state.respostas[index] = textarea.value.trim();
-            updateSubmitButton();
-        });
-        
-        elements.questionsContainer.appendChild(questionDiv);
-    });
+    const icon = tipo === 'ai' ? '🤖' : tipo === 'user' ? '👤' : 'ℹ️';
+    const label = tipo === 'ai' ? 'IA' : tipo === 'user' ? 'Você' : 'Sistema';
     
-    elements.questionsButtons.style.display = 'flex';
-    updateSubmitButton();
+    messageDiv.innerHTML = `
+        <div class="chat-message-header">
+            <span class="chat-icon">${icon}</span>
+            <span class="chat-label">${label}</span>
+        </div>
+        <div class="chat-message-content">${texto}</div>
+    `;
+    
+    elements.chatMessages.appendChild(messageDiv);
+    elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
+    
+    // Adicionar ao estado
+    state.conversa.push({ tipo, texto });
 }
 
-function updateSubmitButton() {
-    const todasRespondidas = state.perguntas.every((_, index) => {
-        return state.respostas[index] && state.respostas[index].length > 0;
-    });
+async function handleSendAnswer() {
+    const resposta = elements.chatInput.value.trim();
     
-    elements.btnSubmitAnswers.disabled = !todasRespondidas;
-}
-
-async function handleGenerateModel() {
-    // Enviar respostas
-    for (let i = 0; i < state.perguntas.length; i++) {
-        if (state.respostas[i]) {
-            try {
-                await fetch('/api/submit-answer', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        pergunta_id: i,
-                        resposta: state.respostas[i]
-                    })
-                });
-            } catch (error) {
-                console.error('Erro ao enviar resposta:', error);
-            }
-        }
+    if (!resposta) {
+        showError('Por favor, digite uma resposta.');
+        return;
     }
     
+    // Adicionar resposta ao chat
+    addMessage('user', resposta);
+    elements.chatInput.value = '';
+    
+    // Enviar resposta ao servidor
+    try {
+        const response = await fetch('/api/submit-answer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ resposta })
+        });
+        
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Erro ao enviar resposta');
+        }
+        
+        // Pedir próxima pergunta
+        await askNextQuestion();
+        
+    } catch (error) {
+        showError(error.message);
+    }
+}
+
+// Funções removidas - não são mais necessárias com o fluxo conversacional
+
+async function handleGenerateModel() {
     // Gerar modelo
     elements.loadingModel.style.display = 'block';
     elements.modelContainer.style.display = 'none';
+    elements.questionsButtons.style.display = 'none';
+    
+    addMessage('system', 'Gerando modelo iStar 2.0...');
     
     try {
         const response = await fetch('/api/generate-model', {
@@ -227,6 +256,7 @@ async function handleGenerateModel() {
         state.modelo = data.modelo;
         
         // Renderizar modelo
+        showStep('model');
         renderModel();
         
     } catch (error) {
@@ -298,14 +328,17 @@ function resetSession() {
     state = {
         sessionId: null,
         cenario: null,
-        perguntas: [],
-        respostas: {},
-        modelo: null
+        conversa: [],
+        modelo: null,
+        prontoParaGerar: false
     };
     
     elements.cenarioInput.value = '';
-    elements.questionsContainer.innerHTML = '';
+    elements.chatMessages.innerHTML = '';
+    elements.chatInput.value = '';
     elements.modelContainer.style.display = 'none';
+    elements.questionsButtons.style.display = 'none';
+    elements.chatInputContainer.style.display = 'none';
     
     showStep('input');
 }
@@ -335,8 +368,8 @@ function loadExample() {
     elements.cenarioInput.value = exemplo;
 }
 
-async function handleAddMoreQuestions() {
-    // Implementar lógica para gerar mais perguntas
-    showError('Funcionalidade em desenvolvimento. Por enquanto, você pode gerar o modelo com as perguntas atuais.');
-}
+// Função removida - não é mais necessária com o fluxo conversacional
+
+
+
 

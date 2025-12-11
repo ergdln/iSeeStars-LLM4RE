@@ -155,3 +155,6 @@ Cenários devem:
 - Considerar criar cenários em múltiplos idiomas (se aplicável)
 - Manter versões originais para reprodutibilidade
 
+
+
+
